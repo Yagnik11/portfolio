@@ -550,24 +550,5 @@
   </footer>
 
   <script src="script.js" defer></script>
-  <script>
-  /* TEMP-DIAG */ window.addEventListener('load', function(){
-    var vw = document.documentElement.clientWidth, bad = [];
-    document.querySelectorAll('body *').forEach(function(el){
-      if (el.id === 'diagbox') return;
-      var r = el.getBoundingClientRect();
-      if (r.right > vw + 1.5 && getComputedStyle(el).position !== 'fixed') {
-        var p = el; var clipped = false;
-        while (p) { if (getComputedStyle(p).overflowX !== 'visible') { clipped = true; break; } p = p.parentElement; }
-        if (!clipped) bad.push(el.tagName.toLowerCase()+'.'+(String(el.className||'').trim().split(/\s+/)[0]||'?')+'[r'+Math.round(r.right)+']');
-      }
-    });
-    var d = document.createElement('pre');
-    d.id = 'diagbox';
-    d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:#0a3d12;color:#7CFFA0;font:13px/1.5 monospace;padding:12px;margin:0;white-space:pre-wrap;';
-    d.textContent = 'vw='+vw+'  scrollWidth='+document.documentElement.scrollWidth+'  OVERFLOW='+(document.documentElement.scrollWidth>vw+1?'YES':'NONE')+'\nunclipped offenders ('+bad.length+'): '+(bad.slice(0,10).join('  ')||'none');
-    document.body.appendChild(d);
-  });
-  </script>
 </body>
 </html>
